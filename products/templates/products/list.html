@@ -1,0 +1,24 @@
+{% extends "products/base.html" %}
+
+{% block content %}
+<h2>Products</h2>
+{% for product in products_list %}
+<div class="card" style="padding: 5px;">
+    <h3 style="margin: 5px;">{{ product.name }}</h3>
+    <div class="btn-group" role="group" aria-label="Basic mixed styles example" style="margin-bottom: 5px;">
+        <a href="{% url 'product-detail' product.pk %}" class="btn btn-success">See product</a>
+
+
+        {% if user.is_staff %}
+        <a href="{% url 'product-update' product.pk %}" class="btn btn-warning">Update product</a>
+        <a href="{% url 'product-delete' product.pk %}" class="btn btn-danger">Delete product</a>
+        {% endif %}
+    </div>
+</div>
+{% endfor %}
+
+
+{% if user.is_staff %}
+<a href="{% url 'product-create' %}" class="btn btn-info">Create product</a>
+{% endif %}
+{% endblock %}
